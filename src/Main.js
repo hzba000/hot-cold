@@ -6,7 +6,7 @@ import PastGuess from './components/PastGuess'
 import Submission from './components/Submission'
 
 let pastArray = [];
-let randomNumGlobal = Math.floor((Math.random()*100)+1);
+// let randomNumGlobal = Math.floor((Math.random()*100)+1);
 
 export class Main extends React.Component{
     constructor(props){
@@ -15,7 +15,7 @@ export class Main extends React.Component{
             guess: 0,
             pastguess: [],
             feedback: 'Welcome to Hot and Cold',
-            numberToGuess: randomNumGlobal
+            numberToGuess: Math.floor((Math.random()*100)+1)
         }
         this.displayPastGuess = this.displayPastGuess.bind(this);
         this.storeFeedback = this.storeFeedback.bind(this);
@@ -33,14 +33,13 @@ export class Main extends React.Component{
     }
     reset(){
         pastArray = [];
-        this.setState({guess:0, pastguess:[], feedback:'Welcome to Hot and Cold'})
-        randomNumGlobal = Math.floor((Math.random()*100)+1);
+        this.setState({guess:0, pastguess:[], feedback:'Welcome to Hot and Cold',numberToGuess: Math.floor((Math.random()*100)+1)})
     }
     checkHotCold(userSubmission){
-        if(userSubmission === randomNumGlobal){
+        if(userSubmission === this.state.numberToGuess){
             this.storeFeedback('Correct')
         }
-        else if(Math.abs(userSubmission - randomNumGlobal)<5){
+        else if(Math.abs(userSubmission - this.state.numberToGuess)<5){
             this.storeFeedback('Warm')
         }
         else{
